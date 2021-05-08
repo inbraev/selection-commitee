@@ -20,6 +20,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'src.user.apps.UserConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -50,7 +53,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'selectionCommitee.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
@@ -64,8 +67,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -105,3 +106,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'back_static')
 MEDIA_URL = "/back_media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'back_media')
 
+# AUTH_USER_MODEL = 'user.User'
