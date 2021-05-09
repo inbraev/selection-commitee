@@ -1,5 +1,5 @@
 from django.contrib import admin
-from src.user.models import Student
+from src.university.models import Student
 
 
 @admin.register(Student)
