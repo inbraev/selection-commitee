@@ -1,6 +1,6 @@
-
 import os
-from decouple import config,Csv
+from decouple import config, Csv
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -8,8 +8,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=Csv())
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Application definition
 
@@ -55,7 +54,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -65,8 +63,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -83,9 +79,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
-
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Asia/Bishkek'
@@ -96,7 +89,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -106,4 +98,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'back_static')
 MEDIA_URL = "/back_media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'back_media')
 
-# AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'user.Users'
