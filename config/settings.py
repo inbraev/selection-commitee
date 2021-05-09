@@ -21,6 +21,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'src.user.apps.UserConfig',
+    'src.subdivision.apps.SubdivisionConfig',
+    'src.recruitmentplan.apps.RecruitmentPlanConfig',
+    'src.university.apps.UniversityConfig',
+
 
 ]
 
