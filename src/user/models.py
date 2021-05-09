@@ -75,6 +75,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=50, blank=False, null=False, verbose_name='имя')
     second_name = models.CharField(max_length=50, blank=False, null=False, verbose_name='фамилия')
     middle_name = models.CharField(max_length=50, blank=False, null=False, verbose_name='отчество')
+    avatar = models.ImageField(blank=True, null=True, upload_to='student/avatar/', verbose_name='фото профиля')
     user = models.OneToOneField(Users, blank=False, null=False, on_delete=models.CASCADE, verbose_name='пользователь')
     sex = models.CharField(max_length=50, choices=gender, default='1', verbose_name='пол')
     phone = models.CharField(max_length=50, blank=False, null=False, verbose_name='телефон')
