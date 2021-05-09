@@ -1,5 +1,5 @@
 from django.contrib import admin
-from src.university.models import Student, AddressBirth
+from src.university.models import Student, AddressBirth,
 
 
 class AddressBirthInline(admin.StackedInline):
