@@ -1,11 +1,19 @@
 from django.contrib import admin
+
 from src.university.models import Student, AddressBirth, EducationName, EducationType, Passport, Percs, Education, \
-    EducationPlace, MilitaryService, EnrollmentData
+    EducationPlace, MilitaryService, EnrollmentData,Parent, AddressParent, AddressLiving, AddressResidence,   EntryChallenge, OrtScoreInside
 
 
 class PercsInline(admin.StackedInline):
     model = Percs
     fields_superuser = ('orphan', 'invalid', 'ethnical_kyrgyz', 'care', 'created_at')
+
+
+
+
+@admin.register(AddressParent)
+class AddressParentInline(admin.ModelAdmin):
+    fields_superuser = ('republic', 'region', 'district', 'city', 'village', 'created_at')
     readonly_fields = ('created_at',)
 
     def get_fields(self, request, obj=None):
@@ -21,9 +29,55 @@ class PercsInline(admin.StackedInline):
             return self.fields_superuser
 
 
+
+class ParentInline(admin.StackedInline):
+    model = Parent
+    fields_superuser = (
+        'first_name', 'second_name', 'middle_name', 'job', 'position', 'phone', 'email', 'address', 'created_at')
+    readonly_fields = ('created_at',)
+    raw_id_fields = ('address',)
+
+    def get_fields(self, request, obj=None):
+        if request.user.is_superuser and request.user.is_staff:
+            return self.fields_superuser
+
+
+class AddressLivingInline(admin.StackedInline):
+    model = AddressLiving
+    fields_superuser = ('republic', 'region', 'district', 'city', 'village', 'phone', 'created_at')
+    readonly_fields = ('created_at',)
+
+    def get_fields(self, request, obj=None):
+        if request.user.is_superuser and request.user.is_staff:
+            return self.fields_superuser
+
+
+class AddressResidenceInline(admin.StackedInline):
+    model = AddressResidence
+    fields_superuser = ('republic', 'region', 'district', 'city', 'village', 'phone', 'created_at')
+    readonly_fields = ('created_at',)
+
+    def get_fields(self, request, obj=None):
+        if request.user.is_superuser and request.user.is_staff:
+            return self.fields_superuser
+
+
+
 class AddressBirthInline(admin.StackedInline):
     model = AddressBirth
     fields_superuser = ('republic', 'region', 'district', 'city', 'village', 'created_at')
+    readonly_fields = ('created_at',)
+
+    def get_fields(self, request, obj=None):
+        if request.user.is_superuser and request.user.is_staff:
+            return self.fields_superuser
+
+
+@admin.register(OrtScoreInside)
+class OrtScoreInsideAdmin(admin.ModelAdmin):
+    fields_superuser = (
+        'basic_score', 'bio_sub_score', 'phy_sub_score', 'chem_sub_score', 'math_sub_score',
+        'his_sub_score', 'eng_sub_score', 'created_at')
     readonly_fields = ('created_at',)
 
     def get_fields(self, request, obj=None):
@@ -45,9 +99,18 @@ class PassportInline(admin.StackedInline):
         'inn', 'serial_number', 'family_status', 'citizenship', 'get_date', 'issuing_auth', 'created_at')
     readonly_fields = ('created_at',)
 
+class EntryChallengeInline(admin.StackedInline):
+    model = EntryChallenge
+    fields_superuser = (
+        'qualifying_round_number', 'passed_ort', 'certificate_num', 'certificate_color', 'ort', 'created_at')
+    readonly_fields = ('created_at',)
+    raw_id_fields = ('ort',)
+
+
     def get_fields(self, request, obj=None):
         if request.user.is_superuser and request.user.is_staff:
             return self.fields_superuser
+
 
     def get_list_display(self, request):
         if request.user.is_superuser and request.user.is_staff:
@@ -189,7 +252,9 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'second_name', 'middle_name',)
     list_filter = ('sex',)
     readonly_fields = ('created_at',)
-    inlines = [AddressBirthInline, PassportInline, EducationInline,EnrollmentInline, MilitaryServiceInline, PercsInline]
+
+    inlines = [AddressBirthInline, AddressLivingInline, AddressResidenceInline, ParentInline, EntryChallengeInline,PassportInline, EducationInline,EnrollmentInline, MilitaryServiceInline, PercsInline]
+
 
     def get_fields(self, request, obj=None):
         if request.user.is_superuser and request.user.is_staff:
