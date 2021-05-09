@@ -31,6 +31,8 @@ class AddressBirth(models.Model):
     district = models.CharField(max_length=150, blank=False, null=False, default='Аламадунский', verbose_name='регион')
     city = models.CharField(max_length=150, blank=True, null=True, verbose_name='город')
     village = models.CharField(max_length=150, blank=True, null=True, verbose_name='село')
+    student = models.OneToOneField(Student, blank=False, null=False, on_delete=models.CASCADE,
+                                   verbose_name='абитуриент')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
 
     def __str__(self):
