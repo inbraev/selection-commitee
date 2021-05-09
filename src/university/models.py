@@ -119,12 +119,12 @@ class Percs(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
 
     def __str__(self):
-        return self.student
+        return f'{self.student}'
 
     class Meta:
         db_table = 'percs'
-        verbose_name = 'Инвалид'
-        verbose_name_plural = 'Инвалиды'
+        verbose_name = 'Льготник'
+        verbose_name_plural = 'Льготники'
         ordering = ('created_at',)
 
 
@@ -149,7 +149,7 @@ class Passport(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
 
     def __str__(self):
-        return self.inn
+        return f'{self.inn}'
 
     class Meta:
         db_table = 'passport'
@@ -284,11 +284,11 @@ class Education(models.Model):
                                        verbose_name='Учился в этом учебном заведении')
     sport_name = models.CharField(blank=True, max_length=50, null=True, verbose_name='Вид спорта')
     sport_document_number = models.CharField(blank=True, max_length=50, null=True, verbose_name="№ документа")
-    education_place = models.OneToOneField(EducationPlace, blank=False, null=False, on_delete=models.CASCADE,
+    education_place = models.ForeignKey(EducationPlace, blank=False, null=False, on_delete=models.CASCADE,
                                            verbose_name='Данные об учебном заведении')
-    type_of_education = models.OneToOneField(EducationType, blank=False, null=False, on_delete=models.CASCADE,
+    type_of_education = models.ForeignKey(EducationType, blank=False, null=False, on_delete=models.CASCADE,
                                              verbose_name='Тип учебного заведения')
-    education_name = models.OneToOneField(EducationName, blank=False, null=False, on_delete=models.CASCADE,
+    education_name = models.ForeignKey(EducationName, blank=False, null=False, on_delete=models.CASCADE,
                                           verbose_name='Учебное заведение')
     student = models.OneToOneField(Student, blank=False, null=False, on_delete=models.CASCADE,
                                    verbose_name='Абитуриент')
@@ -315,6 +315,8 @@ class EnrollmentData(models.Model):
                                        verbose_name='Язык обучения русский')
     study_form = models.CharField(max_length=50, choices=education, default='1',
                                   verbose_name='Форма контракта')
+    direction = models.ForeignKey('subdivision.Direction', blank=False, null=False, on_delete=models.CASCADE,
+                                  verbose_name='направление')
     recommended = models.BooleanField(default=False,
                                       verbose_name='Рекомендовать к зачислению')
     protocol = models.CharField(max_length=150, blank=True, null=True,
@@ -337,17 +339,18 @@ class EnrollmentData(models.Model):
                                     verbose_name='Забрал документы')
     took_docs_date = models.DateField(blank=True, null=True, verbose_name='Дата возврата документов')
     student = models.OneToOneField(Student, blank=False, null=False, on_delete=models.CASCADE,
-                                   verbose_name='Абитуриент')
+                                   verbose_name='Абитуриент', related_name='enroll_student')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
 
     def __str__(self):
-        return self.order_num
+        return f'{self.direction}'
 
     class Meta:
         db_table = 'enrollment_data'
         verbose_name = 'Данные о зачислении'
         verbose_name_plural = 'Данные о зачислении'
         ordering = ('created_at',)
+
 
 class Parent(models.Model):
     first_name = models.CharField(max_length=50, blank=False, null=False, verbose_name='имя')
@@ -427,4 +430,3 @@ class EntryChallenge(models.Model):
         verbose_name = 'Вступительные испытание'
         verbose_name_plural = 'Вступительные испытание'
         ordering = ('created_at',)
-
