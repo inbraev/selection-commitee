@@ -183,3 +183,4 @@ class EntryChallenge(models.Model):
         verbose_name = 'Вступительные испытание'
         verbose_name_plural = 'Вступительные испытание'
         ordering = ('created_at',)
+
