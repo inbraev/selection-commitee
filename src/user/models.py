@@ -65,3 +65,6 @@ class PermissionCommissioner(models.Model):
         verbose_name = 'Доступ пользователя'
         verbose_name_plural = 'Доступ пользователей'
         ordering = ('created_at',)
+
+
+
