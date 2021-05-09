@@ -85,3 +85,21 @@ class AddressResidence(models.Model):
         verbose_name = 'Место жительства'
         verbose_name_plural = 'Место жительства'
         ordering = ('created_at',)
+
+
+class AddressParent(models.Model):
+    republic = models.CharField(max_length=150, blank=False, null=False, default='Кыргызстан', verbose_name='страна')
+    region = models.CharField(max_length=150, blank=False, null=False, default='Чуй', verbose_name='область')
+    district = models.CharField(max_length=150, blank=False, null=False, default='Аламадунский', verbose_name='регион')
+    city = models.CharField(max_length=150, blank=True, null=True, verbose_name='город')
+    village = models.CharField(max_length=150, blank=True, null=True, verbose_name='село')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
+
+    def __str__(self):
+        return self.republic
+
+    class Meta:
+        db_table = 'address_parent'
+        verbose_name = 'Адрес родителей'
+        verbose_name_plural = 'Адрес родителей'
+        ordering = ('created_at',)
