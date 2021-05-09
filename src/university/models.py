@@ -43,3 +43,45 @@ class AddressBirth(models.Model):
         verbose_name = 'Место рождения'
         verbose_name_plural = 'Место рождения'
         ordering = ('created_at',)
+
+
+class AddressLiving(models.Model):
+    republic = models.CharField(max_length=150, blank=False, null=False, default='Кыргызстан', verbose_name='страна')
+    region = models.CharField(max_length=150, blank=False, null=False, default='Чуй', verbose_name='область')
+    district = models.CharField(max_length=150, blank=False, null=False, default='Аламадунский', verbose_name='регион')
+    city = models.CharField(max_length=150, blank=True, null=True, verbose_name='город')
+    village = models.CharField(max_length=150, blank=True, null=True, verbose_name='село')
+    phone = models.CharField(max_length=50, blank=True, null=True, verbose_name='телефон')
+    student = models.OneToOneField(Student, blank=False, null=False, on_delete=models.CASCADE,
+                                   verbose_name='абитуриент')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
+
+    def __str__(self):
+        return self.republic
+
+    class Meta:
+        db_table = 'address_living'
+        verbose_name = 'Место проживания'
+        verbose_name_plural = 'Место проживания'
+        ordering = ('created_at',)
+
+
+class AddressResidence(models.Model):
+    republic = models.CharField(max_length=150, blank=False, null=False, default='Кыргызстан', verbose_name='страна')
+    region = models.CharField(max_length=150, blank=False, null=False, default='Чуй', verbose_name='область')
+    district = models.CharField(max_length=150, blank=False, null=False, default='Аламадунский', verbose_name='регион')
+    city = models.CharField(max_length=150, blank=True, null=True, verbose_name='город')
+    village = models.CharField(max_length=150, blank=True, null=True, verbose_name='село')
+    phone = models.CharField(max_length=50, blank=True, null=True, verbose_name='телефон')
+    student = models.OneToOneField(Student, blank=False, null=False, on_delete=models.CASCADE,
+                                   verbose_name='абитуриент')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
+
+    def __str__(self):
+        return self.republic
+
+    class Meta:
+        db_table = 'address_residence'
+        verbose_name = 'Место жительства'
+        verbose_name_plural = 'Место жительства'
+        ordering = ('created_at',)
