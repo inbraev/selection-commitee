@@ -87,16 +87,20 @@ class UsersAdmin(UserAdmin):
     )
 
     def has_delete_permission(self, request, obj=None):
-        return True
+        if request.user.is_superuser and request.user.is_staff:
+            return True
 
     def has_add_permission(self, request):
-        return True
+        if request.user.is_superuser and request.user.is_staff:
+            return True
 
     def has_change_permission(self, request, obj=None):
-        return True
+        if request.user.is_superuser and request.user.is_staff:
+            return True
 
     def has_module_permission(self, request):
-        return True
+        if request.user.is_superuser and request.user.is_staff:
+            return True
 
 
 admin.site.unregister(Group)
